@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Restaurants located on {{ location_template }}</h1>
+<ul>
+    {% for Restaurant in restaurant_template %}
+    <li><a href="/restaurants/{{Restaurant.ID}}">{{ Restaurant.name }}</a></li> 
+    {% endfor %}
+</ul>
+{% endblock %}

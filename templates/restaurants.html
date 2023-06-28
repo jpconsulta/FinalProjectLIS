@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ restoid_template }}</h1>
-<img src="{{restaurant.url}}">
-<p>{{ restaurant.description }}</p>
-<p>The current rating of the restaurant is {{ restaurant.rating }}.</p>
-<p>The price range of menu is between {{ restaurant.pricerange }}.</p>
-<p>Tags {{ restaurant.foodtype }}</p>
+<h1>{{ identification_template.name }}</h1>
+
+<img src="{{ identification_template.image }}">
+<p>{{ identification_template.description }}</p>
+<p>The current rating of the restaurant is {{ identification_template.rating }}.</p>
+<p>The price range of menu is between {{ identification_template.pricerange }}.</p>
+<p>Tags {{ identification_template.foodtype }}</p>
 
 <form action="{{ url_for('modify') }}" method="post">
-    <input type="hidden" name="resto_id" value="{{ resto.id }}">
+    <input type="hidden" name="resto_id" value="{{ identification_template.id }}">
     <input class="btn btn-secondary" type="submit" name="modify" value="edit"></input>
     <input class="btn btn-danger" type="submit" name="modify" value="delete"></input>
 </form>

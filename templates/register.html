@@ -3,22 +3,41 @@
 {% block content %}
 <h1>Restaurant Recommendations</h1>
 <form action="{{ url_for('processing') }}" method="post">
-    <label for="p_type">Type of Pet:</label>
-    <select name="pet_type" id="p_type" required>
+    <label for="r_location">Location of Restaurant:</label>
+    <select name="location" id="r_location" required>
         <option disabled selected value>...</option>
-        <option value="dogs">Dog</option>
-        <option value="cats">Cat</option>
-        <option value="rabbits">Rabbit</option>
+        <option value="UP Town Center">UPTC</option>
+        <option value="Krus na Ligas">KnL</option>
+        <option value="Science Complex">Science Complex</option>
+        <option value="Maginhawa">Maginhawa</option>
+        <option value="Area II">Area II</option>
     </select><br><br>
-    <label for="p_name">Name of Pet:</label>
-    <input type="text" name="pet_name" id="p_name" required><br><br>
-    <label for="p_breed">Breed:</label>
-    <input type="text" name="pet_breed" id="p_breed"><br><br>
-    <label for="p_age">Age:</label>
-    <input type="number" name="pet_age" id="p_age"><br><br>
-    <label for="p_url">Image URL:</label>
-    <input type="url" name="pet_url" id="p_url"><br>
-    <textarea name="pet_desc" placeholder="Tell something about your pet..." cols="30" rows="10"></textarea><br>
+
+    <label for="r_name">Name of Restaurant:</label>
+    <input type="text" name="restaurant_name" id="r_name" required>
+    <br>
+    <br>
+    <label for="r_description">Description:</label>
+    <input type="text" name="restaurant_description" id="r_description">
+    <br>
+    <br>
+    <label for="r_rating">Rating:</label>
+    <input type="number" name="restaurant_rating" id="r_rating">
+    <br>
+    <br>
+    <label for="r_food_type">Food Type:</label>
+    <input type="text" name="restaurant_foodtype" id="r_food_type">
+    <br>
+    <br>
+    <label for="r_url">Image URL:</label>
+    <input type="url" name="restaurant_url" id="r_url">
+    <br>
+    <br>
+    <label for="r_price_range">Price Range:</label>
+    <input type="number" name="restaurant_price_range" id="r_price_range">
+    <br>
+    <textarea name="restaurant_desc" placeholder="Tell something about the restaurant..." cols="30" rows="10"></textarea>
+    <br>
     <input type="submit" value="Register!">
 </form>
 {% endblock %}

@@ -11,16 +11,15 @@ def index():
 def about_us():
     return render_template('kami.html')
 
-@app.route('/animals/<pet_type>')
-def animals(pet_type):
-    pets_list = read_pets_by_pet_type(pet_type)
-    return render_template("animals.html", pet_type=pet_type, pets=pets_list)
+@app.route('/locations/<location>') #read_pets_by_pet_type so yung first val ng SQL siguro
+def restaurant(location):
+    restaurant_SQLlist = read_Restaurants_by_location(location)
+    return render_template("locations.html", location_template=location, restaurant_template=restaurant_SQLlist) #lahat ng may template ilalagay sa html {{ }}
 
-@app.route('/animals/<int:pet_id>')
-def pet(pet_id):
-    pet = read_pet_by_pet_id(pet_id)
-    return render_template("pet.html",pet=pet)
-
+@app.route('/restaurants/<int:restaurant_ID>')
+def restaurant_name(restaurant_ID):
+    restaurant_identification= read_Restaurants_by_restaurant_ID(restaurant_ID)
+    return render_template("restaurants.html",identification_template=restaurant_identification) 
 
 @app.route('/register')
 def register():
@@ -28,49 +27,53 @@ def register():
 
 @app.route('/processed', methods=['post'])
 def processing():
-    pet_data = {
-        "pet_type": request.form['pet_type'],
-        "name": request.form['pet_name'],
-        "breed": request.form['pet_breed'],
-        "age": request.form['pet_age'],
-        "description": request.form['pet_desc'],
-        "url": request.form['pet_url']
+    Restaurants_data = {
+        "location": request.form['location'],
+        "name": request.form['restaurant_name'],
+        "description": request.form['restaurant_description'],
+        "rating": request.form['restaurant_rating'],
+        "food_type": request.form['restaurant_foodtype'],
+        "image": request.form['restaurant_url'],
+        "price_range": request.form['restaurant_price_range']
     }
-    insert_pet(pet_data)
-    return redirect(url_for('animals', pet_type=request.form['pet_type']))
-
+    insert_Restaurants(Restaurants_data)
+    return redirect(url_for('restaurant', location=request.form['location']))
 
 @app.route('/modify', methods=['post'])
 def modify():
-    # 1. identify whether user clicked edit or delete
-       # if edit, then do this:
+    
     if request.form["modify"] == "edit":
-        # retrieve record using id
-        pet_id = request.form["pet_id"] 
-        pet = read_pet_by_pet_id(pet_id)
-        # update record with new data
-        return render_template('update.html', pet=pet)
-    # if delete, then do this
+       
+        resto_id = request.form["resto_id"] 
+        resto_id = read_Restaurants_by_restaurant_ID(resto_id)
+      
+        return render_template('update.html', restaurant=restaurant)
+    
     elif request.form["modify"] == "delete":
         return render_template('index.html')
-        # retrieve record using id
-        # delete the record
-        # redirect user to pet list by pet type
+       
     
 
 @app.route('/update', methods=['post'])
 def update():
-    pet_data = {
-        "pet_id" : request.form["pet_id"],
-        "pet_type": request.form['pet_type'],
-        "name": request.form['pet_name'],
-        "breed": request.form['pet_breed'],
-        "age": request.form['pet_age'],
-        "description": request.form['pet_desc'],
-        "url": request.form['pet_url']
+    resto_data = {
+        "restaurant_id" : request.form["ID"],
+        "location": request.form['location'],
+        "name": request.form['name'],
+        "description": request.form['description'],
+        "rating": request.form['rating'],
+        "foodtype": request.form['food_type'],
+        "image": request.form['image'],
+        "price_range": request.form['price_range']
     }
-    update_pet(pet_data)
-    return redirect(url_for('pet',pet_id = request.form['pet_id']))
+    update_Restaurants(resto_data)
+    return redirect(url_for('Restaurants',restaurant_ID = request.form['ID']))
+
+@app.route('/search', methods=['get'])
+def search():
+    query = request.args.get('query', '')
+    results = search_Restaurants(query)
+    return render_template('searchpage.html', query=query, results=results)
 
 if __name__ == "__main__":
     app.run(debug=True)

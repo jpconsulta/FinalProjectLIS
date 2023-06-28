@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Your search results for </h1>
-<p>Browse through the links below to find your new furry friend:</p>
-<ul>
-    <li><a href="/animals/dogs">Dogs</a></li>
-    <li><a href="/animals/cats">Cats</a></li>
-    <li><a href="/animals/rabbits">Rabbits</a></li>
-</ul>
+<div class="search-results">
+  <h1>Results for "{{ query }}"</h1>
+  {% if results %}
+    <ul class="search-results">
+      {% for restaurant in results %}
+        <li>
+          <h2>{{ Restaurant.id }} - {{ Restaurant.name }}</h2>
+          <img src="{{ Restaurant.image }}" alt="{{ Restaurant.id }} {{ Restaurant.name }}">
+          <p>Desription: {{ Restaurant.description }}</p>
+          <p>Rating: {{ Restaurant.rating }}</p>
+          <p>FoodType: {{ Restaurant.foodtype }}</p>
+          <p>PriceRange: {{ Restaurant.pricerange }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Data not found, sorry and try again.</p>
+  {% endif %}
+</div>
 {% endblock %}

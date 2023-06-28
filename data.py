@@ -10,7 +10,7 @@ def connect_to_db(path):
     return (conn, conn.cursor())
 
 # This function returns restaurant by their location
-def read_restaurant_by_location(location):
+def read_Restaurants_by_location(location):
     conn, cur = connect_to_db(db_path)
     query = 'SELECT * FROM Restaurants WHERE location = ?'
     value = location
@@ -19,16 +19,16 @@ def read_restaurant_by_location(location):
     return results
 
 # This function retrieves 1 pet by pet_id
-def read_restaurant_by_restaurant_id(resto_id):
+def read_Restaurants_by_restaurant_ID(resto_ID):
     conn, cur = connect_to_db(db_path)
-    query = 'SELECT * FROM Restaurants WHERE id = ?'
-    value = resto_id
-    result = cur.execute(query,(value,)).fetchall()
+    query = 'SELECT * FROM Restaurants WHERE ID = ?'
+    value = resto_ID
+    result = cur.execute(query,(value,)).fetchone()
     conn.close()
     return result
 
 # This function inserts 1 pet data
-def insert_restaurant(resto_data):
+def insert_Restaurants(resto_data):
     conn, cur = connect_to_db(db_path)
     query = 'INSERT INTO Restaurants (location, name, description, rating, food_type, image, price_range) VALUES (?,?,?,?,?,?,?)'
     values = (resto_data['location'], resto_data['name'],
@@ -39,7 +39,7 @@ def insert_restaurant(resto_data):
     conn.close()
 
 # This function updates a record
-def update_restaurant(resto_data):
+def update_Restaurants(resto_data):
     conn, cur = connect_to_db(db_path)
     query = "UPDATE Restaurants SET location=?, name=?, description=?, rating=?, food_type=?, image=?, price_range=? WHERE ID=?"
     values = (resto_data['location'], resto_data['name'],
@@ -50,11 +50,18 @@ def update_restaurant(resto_data):
     conn.commit()
     conn.close()
 
-def delete_restaurant(resto_id):
+def delete_Restaurants(resto_ID):
     con, cur = connect_to_db(db_path)
     query = "DELETE FROM project.db WHERE ID=?"
-    values = (resto_id,)
+    values = (resto_ID,)
     cur.execute(query, values)
     con.commit()
     con.close()
 
+def search_Restaurants(query):
+    conn, cur = connect_to_db(db_path)
+    sql_query = "SELECT * FROM Restaurants WHERE name LIKE ? OR location LIKE ?"
+    value = "%{}%".format(query)
+    results = cur.execute(sql_query, (value, value)).fetchall()
+    conn.close()
+    return results
