@@ -53,15 +53,17 @@ def update_Restaurants(resto_data):
 def delete_Restaurants(restaurant_id):
     con, cur = connect_to_db(db_path)
     query = "DELETE FROM Restaurants WHERE ID = ?"
-    values = (restaurant_id)
+    values = (restaurant_id,)  # Note the comma to create a single-element tuple
     cur.execute(query, values)
     con.commit()
     con.close()
+
 
 def search_Restaurants(query):
     conn, cur = connect_to_db(db_path)
     sql_query = "SELECT * FROM Restaurants WHERE name LIKE ? OR location LIKE ?"
     value = "%{}%".format(query)
+    print(value)
     results = cur.execute(sql_query, (value, value)).fetchall()
     conn.close()
     return results
