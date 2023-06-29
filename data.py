@@ -50,10 +50,10 @@ def update_Restaurants(resto_data):
     conn.commit()
     conn.close()
 
-def delete_Restaurants(resto_ID):
+def delete_Restaurants(restaurant_id):
     con, cur = connect_to_db(db_path)
-    query = "DELETE FROM project.db WHERE ID=?"
-    values = (resto_ID,)
+    query = "DELETE FROM Restaurants WHERE ID = ?"
+    values = (restaurant_id)
     cur.execute(query, values)
     con.commit()
     con.close()

@@ -6,8 +6,8 @@
 <img src="{{ identification_template.image }}">
 <p>{{ identification_template.description }}</p>
 <p>The current rating of the restaurant is {{ identification_template.rating }}.</p>
-<p>The price range of menu is between {{ identification_template.pricerange }}.</p>
-<p>Tags {{ identification_template.foodtype }}</p>
+<p>The price range of menu is between {{ identification_template.price_range }}.</p>
+<p>Tags: {{ identification_template.food_type }}</p>
 
 <form action="{{ url_for('modify') }}" method="post">
     <input type="hidden" name="resto_id" value="{{ identification_template.id }}">

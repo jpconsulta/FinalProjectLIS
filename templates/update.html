@@ -5,44 +5,14 @@
 <form action="{{ url_for('update') }}" method="post">
     <input type="hidden" name="resto_id" value="{{ Restaurant.id }}">
     <label for="r_location">Restaurant Location</label>
-    <select name="location" id="r_location" required>
+    <select name="restaurant_location" id="r_location" required>
         <option disabled selected value>...</option>
-        {% if resto_id == "Area II" %}
-        <option value="Area II" selected>Area II</option>
-        <option value="Krus na Ligas">KnL</option>
-        <option value="Maginhawa">Maginhawa</option>
-        <option value="Science Complex">Science Complex</option>
+        <option disabled selected value>...</option>
         <option value="UP Town Center">UPTC</option>
-
-        {% elif resto_id == "Krus na Ligas" %}
-        <option value="Area II">Area II</option>
-        <option value="Krus na Ligas" selected>KnL</option>
-        <option value="Maginhawa">Maginhawa</option>
-        <option value="Science Complex">Science Complex</option>
-        <option value="UP Town Center" selected>UPTC</option>
-
-        {% elif resto_id == "Maginhawa" %}
-        <option value="Area II">Area II</option>
         <option value="Krus na Ligas">KnL</option>
-        <option value="Maginhawa" selected>Maginhawa</option>
         <option value="Science Complex">Science Complex</option>
-        <option value="UP Town Center">UPTC</option>
-
-        {% elif resto_id == "Science Complex" %}
-        <option value="Area II">Area II</option>
-        <option value="Krus na Ligas">KnL</option>
         <option value="Maginhawa">Maginhawa</option>
-        <option value="Science Complex" selected>Science Complex</option>
-        <option value="UP Town Center">UPTC</option>
-
-        {% elif resto_id == "UP Town Center" %}
         <option value="Area II">Area II</option>
-        <option value="Krus na Ligas">KnL</option>
-        <option value="Maginhawa">Maginhawa</option>
-        <option value="Science Complex">Science Complex</option>
-        <option value="UP Town Center" selected>UPTC</option>
-
-        {% endif %}
     </select><br><br>
     <label for="r_name">Name of Restaurant:</label>
     <input type="text" name="restaurant_name" id="r_name" value="{{ Restaurant.name }}" required>
@@ -54,14 +24,14 @@
     <input type="number" name="restaurant_rating" id="r_rating" value="{{ Restaurant.rating }}">
     <br><br>
     <label for="r_food_type">Food_Type:</label>
-    <input type="text" name="restaurant_foodtype" id="r_food_type" value="{{ Restaurant.foodtype }}">
+    <input type="text" name="restaurant_food_type" id="r_food_type" value="{{ Restaurant.food_type }}">
     <br><br>
     <label for="r_url">Image URL:</label>
     <input type="url" name="restaurant_url" id="r_url" value="{{ Restaurant.image }}">
     <br>
     <br>
     <label for="r_price_range">Price Range:</label>
-    <input type="int" name="restaurant_price_range" id="r_price_range" value="{{ Restaurant.pricerange }}">
+    <input type="int" name="restaurant_price_range" id="r_price_range" value="{{ Restaurant.price_range }}">
     <br>
     <input type="submit" value="Update!">
 </form>

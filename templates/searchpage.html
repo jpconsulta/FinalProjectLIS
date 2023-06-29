@@ -2,19 +2,19 @@
 
 {% block content %}
 <div class="search-results">
-  <h1>Results for "{{ query }}"</h1>
+  <h1>Results for "{{ query_template }}"</h1>
   {% if results %}
     <ul class="search-results">
-      {% for restaurant in results %}
-        <li>
-          <h2>{{ Restaurant.id }} - {{ Restaurant.name }}</h2>
-          <img src="{{ Restaurant.image }}" alt="{{ Restaurant.id }} {{ Restaurant.name }}">
-          <p>Desription: {{ Restaurant.description }}</p>
-          <p>Rating: {{ Restaurant.rating }}</p>
-          <p>FoodType: {{ Restaurant.foodtype }}</p>
-          <p>PriceRange: {{ Restaurant.pricerange }}</p>
-        </li>
-      {% endfor %}
+    
+      <li>
+        <h2>{{ Restaurant.id }} - {{ Restaurant.name }}</h2>
+        <img src="{{ Restaurant.image }}" alt="{{ Restaurant.id }} {{ Restaurant.name }}">
+        <p>Desription: {{ Restaurant.description }}</p>
+        <p>Rating: {{ Restaurant.rating }}</p>
+        <p>FoodType: {{ Restaurant.food_type }}</p>
+        <p>PriceRange: {{ Restaurant.price_range }}</p>
+      </li>
+  
     </ul>
   {% else %}
     <p>Data not found, sorry and try again.</p>

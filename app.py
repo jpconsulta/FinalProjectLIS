@@ -43,37 +43,36 @@ def processing():
 def modify():
     
     if request.form["modify"] == "edit":
-       
-        resto_id = request.form["resto_id"] 
-        resto_id = read_Restaurants_by_restaurant_ID(resto_id)
-      
-        return render_template('update.html', restaurant=restaurant)
+        restaurant_id = request.form['resto_id'] 
+        restaurant_id = read_Restaurants_by_restaurant_ID(restaurant_id)
+        return render_template('update.html', Restaurant=restaurant_id) 
     
     elif request.form["modify"] == "delete":
-        return render_template('index.html')
-       
+        restaurant_id =request.form["resto_id"]
+        read_restaurant_id = read_Restaurants_by_restaurant_ID(restaurant_id)
+        delete_Restaurants(restaurant_id)
+        return redirect(url_for("locations", Restaurant=read_restaurant_id['name']))
     
-
 @app.route('/update', methods=['post'])
 def update():
     resto_data = {
-        "restaurant_id" : request.form["ID"],
-        "location": request.form['location'],
-        "name": request.form['name'],
-        "description": request.form['description'],
-        "rating": request.form['rating'],
-        "foodtype": request.form['food_type'],
-        "image": request.form['image'],
-        "price_range": request.form['price_range']
+        "restaurant_id" : request.form["resto_id"],
+        "location": request.form['restaurant_location'],
+        "name": request.form['restaurant_name'],
+        "description": request.form['restaurant_description'],
+        "rating": request.form['restaurant_rating'],
+        "foodtype": request.form['restaurant_food_type'],
+        "image": request.form['restaurant_url'],
+        "price_range": request.form['restaurant_price_range']
     }
     update_Restaurants(resto_data)
-    return redirect(url_for('Restaurants',restaurant_ID = request.form['ID']))
+    return redirect(url_for('Restaurants',Restaurant=request.form['resto_id']))
 
 @app.route('/search', methods=['get'])
 def search():
     query = request.args.get('query', '')
     results = search_Restaurants(query)
-    return render_template('searchpage.html', query=query, results=results)
+    return render_template('searchpage.html', query_template=query, results_template=results)
 
 if __name__ == "__main__":
     app.run(debug=True)
