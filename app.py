@@ -47,11 +47,10 @@ def modify():
         restaurant_id = read_Restaurants_by_restaurant_ID(restaurant_id)
         return render_template('update.html', Restaurant=restaurant_id) 
     
-    elif request.form["modify"] == "delete":
+    elif request.form["modify"] == "delete":        
         restaurant_id =request.form["resto_id"]
-        read_restaurant_id = read_Restaurants_by_restaurant_ID(restaurant_id)
-        delete_Restaurants(restaurant_id)
-        return redirect(url_for("locations", Restaurant=read_restaurant_id['name']))
+        delete_restaurant_id = delete_Restaurants(restaurant_id)
+        return render_template('index.html')
     
 @app.route('/update', methods=['post'])
 def update():
